@@ -21,7 +21,7 @@ dependencies = [
 
 [project.optional-dependencies]
 linting = ["pre-commit"]
-tests = ["pytest", "pytest-cov"]
+tests = ["pytest", "pytest-cov", "httpx"]
 docs = ["sphinx", "sphinx_rtd_theme"]
 peft = [
     "peft>=0.9.0",

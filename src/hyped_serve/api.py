@@ -34,8 +34,9 @@ class HypedAPI(FastAPI):
             examples: list[in_model],
         ) -> list[out_model]:
             """Apply the data pipeline to a batch of examples."""
+            index = list(range(len(examples)))
             batch = _examples_to_batch([e.model_dump() for e in examples])
-            batch = self.pipe.batch_process(batch, index=[0], rank=0)
+            batch = self.pipe.batch_process(batch, index=index, rank=0)
             return list(_batch_to_examples(batch))
 
         async def apply_pipe(example: in_model) -> out_model:
