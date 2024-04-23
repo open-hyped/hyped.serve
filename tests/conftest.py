@@ -28,7 +28,7 @@ def features() -> Features:
 
 @pytest.fixture
 def api(data_pipe: DataPipe, features: Features) -> HypedAPI:
-    return HypedAPI(data_pipe, features)
+    return HypedAPI().serve_pipe(data_pipe, features)
 
 
 @pytest.fixture
