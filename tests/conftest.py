@@ -11,7 +11,7 @@ from hyped.data.processors.features.format import (
     FormatFeaturesConfig,
 )
 
-from hyped_serve.api import HypedAPI
+from hyped.serve.api import HypedAPI
 
 
 @pytest.fixture
