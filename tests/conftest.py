@@ -11,7 +11,7 @@ from hyped.data.processors.features.format import (
     FormatFeaturesConfig,
 )
 
-from hyped_serve.api import HypedAPI
+from hyped.serve.api import HypedAPI
 
 
 @pytest.fixture
@@ -28,7 +28,7 @@ def features() -> Features:
 
 @pytest.fixture
 def api(data_pipe: DataPipe, features: Features) -> HypedAPI:
-    return HypedAPI(data_pipe, features)
+    return HypedAPI().serve_pipe(data_pipe, features)
 
 
 @pytest.fixture

@@ -1,17 +1,17 @@
-"""Hyped API."""
+"""Hyped API Router."""
 from datasets import Features
 from datasets.iterable_dataset import _batch_to_examples, _examples_to_batch
-from fastapi import FastAPI, Request, Response
-from fastapi.routing import APIRoute
+from fastapi import Response
+from fastapi.routing import APIRoute, APIRouter
 from hyped.data.io.datasets.typed_json import pydantic_model_from_features
 from hyped.data.pipe import DataPipe
 
 
-class HypedAPI(FastAPI):
-    """Hyped API serving a data pipe."""
+class HypedAPIRouter(APIRouter):
+    """Hyped API Router serving a data pipe."""
 
     def __init__(self, pipe: DataPipe, features: Features, **kwargs) -> None:
-        """Initialize the API.
+        """Initialize the API Router.
 
         Arguments:
             pipe (DataPipe):
@@ -20,7 +20,7 @@ class HypedAPI(FastAPI):
                 input features to be processed by the data pipe
             **kwargs (dict[str, Any]):
                 keyword arguments passed to the base constructor. For more
-                information check the FastAPI documentation.
+                information check the FastAPIRouter documentation.
         """
         self.pipe = pipe
         # prepare data pipe
@@ -43,14 +43,13 @@ class HypedAPI(FastAPI):
             """Apply the data pipeline to an example."""
             return (await batch_apply_pipe([example]))[0]
 
-        super(HypedAPI, self).__init__(
-            title="HypedAPI",
+        super(HypedAPIRouter, self).__init__(
             routes=[
-                APIRoute("/health", self.health, methods=["GET"]),
                 APIRoute("/ready", self.ready, methods=["GET"]),
                 APIRoute("/apply", apply_pipe, methods=["POST"]),
                 APIRoute("/batch", batch_apply_pipe, methods=["POST"]),
-            ],
+            ]
+            + list(kwargs.pop("routes", [])),
             **kwargs,
         )
 
@@ -60,8 +59,4 @@ class HypedAPI(FastAPI):
         if not self.pipe.is_prepared:
             return Response(content="pipe not prepared", status_code=503)
         # ready for usage
-        return Response(content="ok", status_code=200)
-
-    async def health(self) -> Response:
-        """Health check."""
         return Response(content="ok", status_code=200)
