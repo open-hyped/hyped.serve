@@ -1,6 +1,6 @@
 # Hyped Serve
 
-Hyped Serve is an add-on for [hyped](https://github.com/open-hyped/hyped) designed to streamline the serving process of a hyped data pipeline.
+Hyped Serve is a lightweight add-on for [hyped](https://github.com/open-hyped/hyped) designed to streamline the serving process of a hyped data pipeline.
 
 ## Installation
 
@@ -51,3 +51,26 @@ The Hyped Serve API provides the following endpoints for interacting with your d
 | \<prefix\>/ready | GET    | Readiness check to determine if the server is ready to receive requests.                               |
 | \<prefix\>/apply | POST   | Process a single example using the data pipeline. Expects a single example in JSON format matching the specified features. |
 | \<prefix\>/batch | POST   | Process a batch of examples using the data pipeline. Expects a list of examples.                   |
+
+Additionally, a Swagger UI API documentation is available at /docs.
+
+## Serving multiple Data Pipes
+
+The serving environment also supports serving multiple data pipes simultaneously. You can configure this by providing multiple data pipes and their respective features.
+
+```python
+# app.py
+
+app = (
+  HypedAPI()
+  .serve_pipe(pipe_one, features_one, prefix="/one")
+  .serve_pipe(pipe_two, features_two, prefix="/two")
+)
+```
+
+This example demonstrates serving two different data pipes (pipe_one and pipe_two) with their corresponding features, each accessible via different prefixes (/one and /two).
+
+
+## License
+
+Hyped Serve is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). See the [`LICENSE`](/LICENSE) file for details.
