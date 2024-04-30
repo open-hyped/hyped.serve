@@ -60,9 +60,9 @@ The serving environment also supports serving multiple data pipes simultaneously
 # app.py
 
 app = (
-  HypedAPI()
-  .serve_pipe(pipe_one, features_one, prefix="/one")
-  .serve_pipe(pipe_two, features_two, prefix="/two")
+    HypedAPI()
+    .serve_pipe(pipe_one, features_one, prefix="/one")
+    .serve_pipe(pipe_two, features_two, prefix="/two")
 )
 ```
 
