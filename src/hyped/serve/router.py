@@ -45,7 +45,6 @@ class HypedAPIRouter(APIRouter):
 
         super(HypedAPIRouter, self).__init__(
             routes=[
-                APIRoute("/health", self.health, methods=["GET"]),
                 APIRoute("/ready", self.ready, methods=["GET"]),
                 APIRoute("/apply", apply_pipe, methods=["POST"]),
                 APIRoute("/batch", batch_apply_pipe, methods=["POST"]),
@@ -60,8 +59,4 @@ class HypedAPIRouter(APIRouter):
         if not self.pipe.is_prepared:
             return Response(content="pipe not prepared", status_code=503)
         # ready for usage
-        return Response(content="ok", status_code=200)
-
-    async def health(self) -> Response:
-        """Health check."""
         return Response(content="ok", status_code=200)

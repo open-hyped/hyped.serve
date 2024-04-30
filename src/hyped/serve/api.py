@@ -2,7 +2,8 @@
 from __future__ import annotations
 
 from datasets import Features
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
+from fastapi.routing import APIRoute
 from hyped.data.pipe import DataPipe
 
 from hyped.serve.router import HypedAPIRouter
@@ -10,6 +11,20 @@ from hyped.serve.router import HypedAPIRouter
 
 class HypedAPI(FastAPI):
     """Hyped API serving data pipes."""
+
+    def __init__(self, **kwargs) -> None:
+        """Constuctor.
+
+        For more information on arguments, please refer to the fastapi
+        documentation.
+        """
+        super(HypedAPI, self).__init__(
+            routes=[
+                APIRoute("/health", self.health, methods=["GET"]),
+            ]
+            + list(kwargs.pop("routes", [])),
+            **kwargs,
+        )
 
     def serve_pipe(
         self, pipe: DataPipe, features: Features, **kwargs
@@ -38,3 +53,7 @@ class HypedAPI(FastAPI):
         self.include_router(router)
         # return self
         return self
+
+    async def health(self) -> Response:
+        """Health check."""
+        return Response(content="ok", status_code=200)
