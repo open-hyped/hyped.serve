@@ -143,7 +143,7 @@ checkpoints
 data
 docs/source/api/*
 !docs/source/api/.gitkeep
-src/hyped_serve/__version__.py
+src/hyped/serve/__version__.py
 
 # explicitly unignore data directory
 !src/hyped/data

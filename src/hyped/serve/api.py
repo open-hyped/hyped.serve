@@ -5,7 +5,7 @@ from datasets import Features
 from fastapi import FastAPI
 from hyped.data.pipe import DataPipe
 
-from hyped_serve.router import HypedAPIRouter
+from hyped.serve.router import HypedAPIRouter
 
 
 class HypedAPI(FastAPI):
