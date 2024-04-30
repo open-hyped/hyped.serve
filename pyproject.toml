@@ -22,7 +22,6 @@ dependencies = [
 [project.optional-dependencies]
 linting = ["pre-commit"]
 tests = ["pytest", "pytest-cov", "httpx"]
-docs = ["sphinx", "sphinx_rtd_theme"]
 
 [build-system]
 requires = ["setuptools >= 61.0.0", "setuptools_scm>=8.0.0"]
