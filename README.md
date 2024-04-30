@@ -21,10 +21,8 @@ Here's a basic example:
 ```python
 # app.py
 from hyped.serve import HypedAPI
-
-# Import necessary modules
-from hyped import DataPipe, Features
-from hyped_serve import HypedAPI
+from hyped.data.pipe import DataPipe
+from datasets import Features
 
 # Define your data pipeline and its expected input features
 pipe = DataPipe([...])
