@@ -68,6 +68,21 @@ app = (
 
 This example demonstrates serving two different data pipes (pipe_one and pipe_two) with their corresponding features, each accessible via different prefixes (/one and /two).
 
+## Running Tests
+
+Hyped Serve includes a suite of tests to ensure its functionality. You can run these tests using pytest:
+
+```bash
+pytest tests
+```
+
+Ensure that you have pytest installed in your environment. You can install it via pip:
+
+```bash
+pip install pytest
+```
+
+Running the tests will execute various test cases to validate the behavior of Hyped Serve.
 
 ## License
 
