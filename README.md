@@ -1,5 +1,11 @@
 # Hyped Serve
 
+[![Tests](https://github.com/open-hyped/hyped.serve/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/open-hyped/hyped.serve/actions/workflows/tests.yml)
+[![Linting](https://github.com/open-hyped/hyped.serve/actions/workflows/linting.yml/badge.svg?branch=main)](https://github.com/open-hyped/hyped.serve/actions/workflows/linting.yml)
+[![Coverage Status](https://coveralls.io/repos/github/open-hyped/hyped.serve/badge.svg?branch=main)](https://coveralls.io/github/open-hyped/hyped.serve?branch=main)
+[![PyPi version](https://badgen.net/pypi/v/hyped-serve/)](https://pypi.org/project/hyped-serve)
+[![PyPi license](https://badgen.net/pypi/license/hyped-serve/)](https://pypi.org/project/hyped-serve/)
+
 Hyped Serve is a lightweight add-on for [hyped](https://github.com/open-hyped/hyped) designed to streamline the serving process of a hyped data pipeline.
 
 ## Installation
