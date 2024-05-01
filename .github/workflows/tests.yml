@@ -13,6 +13,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         # TODO: support windows-latest
         # TODO: tests are super slow on macos-latest
