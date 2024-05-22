@@ -35,7 +35,7 @@ flow = DataFlow(features=Features({...}))
 ...
 
 # Create the app to be served
-app = HypedAPI().serve_pipe(flow, prefix="/")
+app = HypedAPI().serve_flow(flow, prefix="/")
 ```
 
 Once you've defined your app, you can serve it using uvicorn:
@@ -67,8 +67,8 @@ The serving environment also supports serving multiple data flows simultaneously
 
 app = (
     HypedAPI()
-    .serve_pipe(flow_one, prefix="/one")
-    .serve_pipe(flow_two, prefix="/two")
+    .serve_flow(flow_one, prefix="/one")
+    .serve_flow(flow_two, prefix="/two")
 )
 ```
 
