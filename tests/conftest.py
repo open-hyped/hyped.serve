@@ -5,20 +5,10 @@ from datasets import Features, Value
 from datasets.iterable_dataset import _batch_to_examples, _examples_to_batch
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from hyped.data.pipe import DataPipe
-from hyped.data.processors.features.format import (
-    FormatFeatures,
-    FormatFeaturesConfig,
-)
+from hyped.data.flow import DataFlow
+from hyped.data.flow.processors.ops.noop import NoOp
 
 from hyped.serve.api import HypedAPI
-
-
-@pytest.fixture
-def data_pipe() -> DataPipe:
-    return DataPipe(
-        [FormatFeatures(FormatFeaturesConfig(output_format={"y": "x"}))]
-    )
 
 
 @pytest.fixture
@@ -27,8 +17,17 @@ def features() -> Features:
 
 
 @pytest.fixture
-def api(data_pipe: DataPipe, features: Features) -> HypedAPI:
-    return HypedAPI().serve_pipe(data_pipe, features)
+def flow(features: Features) -> DataFlow:
+    # create flow and add noop processor
+    flow = DataFlow(features)
+    out = NoOp().call(x=flow.src_features.x)
+    # build the flow
+    return flow.build(collect=out)
+
+
+@pytest.fixture
+def api(flow: DataFlow) -> HypedAPI:
+    return HypedAPI().serve_flow(flow)
 
 
 @pytest.fixture
@@ -42,10 +41,7 @@ def example(request) -> dict[str, Any]:
 
 
 @pytest.fixture
-def out_example(
-    data_pipe: DataPipe, features: Features, example: dict[str, Any]
-) -> dict[str, Any]:
-    data_pipe.prepare(features)
+def out_example(flow: DataFlow, example: dict[str, Any]) -> dict[str, Any]:
     batch = _examples_to_batch([example])
-    batch = data_pipe.batch_process(batch, index=[0])
+    batch = flow.batch_process(batch, index=[0])
     return next(_batch_to_examples(batch))
